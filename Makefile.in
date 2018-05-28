@@ -1,0 +1,32 @@
+#$(D) -> ".." "../.."
+
+BIN_FOLDER = $(D)/bin
+INITRD_BIN_FOLDER = $(BIN_FOLDER)/initrd
+
+# FIXME: if host cpu = amd64
+M = -m32
+# else M=""
+# endif
+
+ASFLAGS = $(M) -I$(D)/include
+
+LDFLAGS = -nostdlib
+
+#OPTIMIZATION_FLAGS=-O0 -DOPTIMIZATION=0
+OPTIMIZATION_FLAGS=-O1 -DOPTIMIZATION=1
+
+DEFS = -DKERNEL
+
+CFLAGS = $(M) -I$(D)/include -g3 $(OPTIMIZATION_FLAGS) -Wall -Werror -c -nostdlib -nostdinc -fno-builtin \
+	    -fno-stack-protector -nostartfiles -nodefaultlibs -ffreestanding $(KERNEL_CFLAGS) \
+		$(DEFS)
+
+LD = ld $(LDFLAGS) -m elf_i386
+
+%.o: %.S
+	@echo [$(CC)] $<
+	@$(CC) $(CFLAGS) -c -MMD -o $@ $<
+
+%.o: %.c
+	@echo [$(CC)] $<
+	@$(CC) $(CFLAGS) -c -MMD -o $@ $<

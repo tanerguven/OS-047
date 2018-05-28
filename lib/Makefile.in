@@ -1,0 +1,1 @@
+SRC += $(wildcard lib/*.S) $(wildcard lib/*.c)

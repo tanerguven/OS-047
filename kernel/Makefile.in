@@ -1,0 +1,4 @@
+SRC += $(wildcard kernel/*.S) $(wildcard kernel/*.c)
+SRC += $(wildcard kernel/memory/*.S) $(wildcard kernel/memory/*.c)
+SRC += $(wildcard kernel/fs/*.S) $(wildcard kernel/fs/*.c)
+SRC += $(wildcard kernel/network/*.S) $(wildcard kernel/network/*.c)
